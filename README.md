@@ -1,4 +1,4 @@
-# argos3-pi-puck
+# argos3-pipuck
 ARGoS3 Plug-in for the pi-puck
 
 ## Compiling the code
@@ -31,7 +31,7 @@ Next do the following
 ```shell
 mkdir build
 cd build
-cmake cmake -D MAKE_INSTALL_PREFIX=/DIR -DCMAKE_BUILD_TYPE=Release ../src
+cmake -D CMAKE_INSTALL_PREFIX=/DIR -DCMAKE_BUILD_TYPE=Release ../src
 make
 sudo make install
 ```
