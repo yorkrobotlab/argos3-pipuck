@@ -36,6 +36,34 @@ make
 sudo make install
 ```
 
+As you’ll be using custom models, you need to make sure ARGoS is looking for them in the correct directory. (For more information on this, see the [README](https://github.com/ilpincy/argos3/blob/master/README.asciidoc "ARGoS README") for ilpincy/argos3)
+If you’re using Linux, you need to edit `$HOME/.config/Iridia-ULB/ARGoS.conf` with the following:
+```shell
+[MainWindow]
+#
+# other stuff
+#
+icon_dir=/PATH/TO/argos3/src/plugins/simulator/visualizations/qt-opengl/icons/
+texture_dir=/PATH/TO/argos3/src/plugins/simulator/visualizations/qt-opengl/textures/
+model_dir=/PATH/TO/argos3/src/plugins/simulator/visualizations/qt-opengl/models/
+#
+# more stuff
+#
+```
+On Mac, write the following into your command line:
+```shell
+$ defaults write info.argos-sim.ARGoS MainWindow.texture_dir -string "/PATH/TO/argos3/src/plugins/simulator/visualizations/qt-opengl/textures/"
+$ defaults write info.argos-sim.ARGoS MainWindow.model_dir -string "/PATH/TO/argos3/src/plugins/simulator/visualizations/qt-opengl/models/"
+$ defaults write info.argos-sim.ARGoS MainWindow.icon_dir -string "/PATH/TO/argos3/src/plugins/simulator/visualizations/qt-opengl/icons/"
+$ killall -u YOURUSERNAME cfprefsd
+```
+substituting /PATH/TO/ with the path to your ARGoS installation and and USERNAME with your own username.
+
+You should now be able to run the pipuck example with
+```shell
+argos3 -c path/to/argos3-pipuck/build/testing/pi-puck/test_pipuck.argos
+```
+
 ## Testing the code
 
 You can check that the plugin has been properly installed by running the following command
