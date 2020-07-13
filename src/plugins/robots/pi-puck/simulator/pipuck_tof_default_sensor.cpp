@@ -76,6 +76,7 @@ namespace argos {
          cRayStart += s_interface.Anchor.Position;
          cRayEnd = CVector3::Z * s_interface.Range; /*this is the range - given the ToF sensor has three possible ones, I'm going to have to find a good way to figure that out*/
          cRayEnd.Rotate(std::get<CQuaternion>(s_interface.Configuration)); /*orientation according to the start of the ray*/
+         cRayEnd.Rotate(s_interface.Anchor.Orientation);
          cRayEnd += cRayStart; /* end position = start position + range */
          cSensorRay.Set(cRayStart, cRayEnd); /*Ray defined by start and end points*/
 
