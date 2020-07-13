@@ -42,8 +42,6 @@ namespace argos {
 
       virtual ~CCI_PiPuckTofSensor() {}
 
-      virtual void Init(TConfigurationNode& t_tree);
-
       virtual void ForEachInterface(std::function<void(const SInterface&)>) = 0;
 
 #ifdef ARGOS_WITH_LUA

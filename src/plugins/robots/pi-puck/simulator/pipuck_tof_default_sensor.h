@@ -65,6 +65,7 @@ namespace argos {
    private:
       bool m_bShowRays;
       Real m_rRange;
+      std::string m_sRange;
       CControllableEntity* m_pcControllableEntity;
       std::vector<SSimulatedInterface> m_vecSimulatedInterfaces;   
    };

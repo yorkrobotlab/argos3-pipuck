@@ -22,7 +22,7 @@ namespace argos {
 
    CPiPuckTofDefaultSensor::CPiPuckTofDefaultSensor() :
    m_bShowRays(false), /* false by default, I think, because otherwise the rays show even when the sensor isn't called? TODO: check this is true*/
-   m_rRange(SHORT_RANGE),
+   m_sRange("short"),
    m_pcControllableEntity(nullptr) {}
 
    void CPiPuckTofDefaultSensor::SetRobot(CComposableEntity& c_entity) {
@@ -42,7 +42,17 @@ namespace argos {
       try {
          CCI_PiPuckTofSensor::Init(t_tree);
          GetNodeAttributeOrDefault(t_tree, "show_rays", m_bShowRays, m_bShowRays);
-         GetNodeAttributeOrDefault(t_tree, "range", m_rRange, m_rRange);
+         GetNodeAttributeOrDefault(t_tree, "range", m_sRange, m_sRange);
+         if(m_sRange.compare("short") == 0) {
+            m_rRange = SHORT_RANGE;
+
+         } else if(m_sRange.compare("medium") == 0) {
+            m_rRange = MED_RANGE;
+
+         } else if(m_sRange.compare("long") == 0) {
+            m_rRange = LONG_RANGE;
+
+         }
 
          for(SSimulatedInterface& s_interface : m_vecSimulatedInterfaces) {
             s_interface.Range = m_rRange;
@@ -109,9 +119,9 @@ namespace argos {
                   "Time-of-flight long-range IR sensors for the pi-puck",
                   "This sensor measures the distance of far away objects\n"
                   "ranges:\n" 
-                  "SHORT_RANGE - 1.360m"
-                  "MED_RANGE - 2.900m\n"
-                  "LONG_RANGE - 3.600m\n",
+                  "short - 1.360m\n"
+                  "medium - 2.900m\n"
+                  "long - 3.600m\n",
                   "Under development"
    );
 
