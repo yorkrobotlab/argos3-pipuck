@@ -26,6 +26,7 @@ namespace argos {
    m_pcControllableEntity(nullptr) {}
 
    void CPiPuckTofDefaultSensor::SetRobot(CComposableEntity& c_entity) {
+      /*I think NodeExists is what I need here*/
       m_pcControllableEntity = &(c_entity.GetComponent<CControllableEntity>("controller"));
 
       m_vecSimulatedInterfaces.reserve(m_mapSensorConfig.size());

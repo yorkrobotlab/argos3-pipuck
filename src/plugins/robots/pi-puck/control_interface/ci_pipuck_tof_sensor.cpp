@@ -56,6 +56,8 @@ namespace argos {
    /* taken from JA's specification */
    /* height is a complete and utter guess, and mostly just there to make sure I have _something_. TODO: check & fix this*/
 
+   /*need m_mapSensorConfig to not be const I think?*/
+
    const std::map<UInt8, CCI_PiPuckTofSensor::TConfiguration > CCI_PiPuckTofSensor::m_mapSensorConfig = {
       std::make_pair(1,  std::make_tuple("origin", CVector3( 0.000, 0.030, 0.05), CQuaternion( -0.5 * CRadians::PI, CVector3(1.0, 00, 0)))), 
       std::make_pair(2,  std::make_tuple("origin", CVector3( 0.023, 0.023, 0.05), CQuaternion( -0.5 * CRadians::PI, CVector3(0.730, -0.683,0)))),
