@@ -55,17 +55,17 @@ namespace argos {
 
    /* taken from JA's specification */
    /* height is a complete and utter guess, and mostly just there to make sure I have _something_. TODO: check & fix this*/
-
    /*need m_mapSensorConfig to not be const I think?*/
 
-   const std::map<UInt8, CCI_PiPuckTofSensor::TConfiguration > CCI_PiPuckTofSensor::m_mapSensorConfig = {
-      std::make_pair(1,  std::make_tuple("origin", CVector3( 0.000, 0.030, 0.05), CQuaternion( -0.5 * CRadians::PI, CVector3(1.0, 00, 0)))), 
-      std::make_pair(2,  std::make_tuple("origin", CVector3( 0.023, 0.023, 0.05), CQuaternion( -0.5 * CRadians::PI, CVector3(0.730, -0.683,0)))),
-      std::make_pair(3,  std::make_tuple("origin", CVector3( 0.023, -0.023, 0.05), CQuaternion( 0.5 * CRadians::PI, CVector3(0.73, 0.683,0)))),
-      std::make_pair(4,  std::make_tuple("origin", CVector3( 0.000, -.030, 0.05), CQuaternion( 0.5 * CRadians::PI, CVector3(1.0, 0, 0)))), 
-      std::make_pair(5,  std::make_tuple("origin", CVector3(-0.023, -0.023, 0.05), CQuaternion( 0.5 * CRadians::PI, CVector3(0.73, -0.683,0)))),
-      std::make_pair(6,  std::make_tuple("origin", CVector3( -0.023, 0.023, 0.05), CQuaternion( -0.5 * CRadians::PI, CVector3(0.73,0.683,0)))),
-   };
+    const std::map<UInt8, CCI_PiPuckTofSensor::TConfiguration > CCI_PiPuckTofSensor::m_mapSensorConfig = {
+            std::make_pair(1,  std::make_tuple("origin", CVector3( 0.0309, 0.0, 0.05), CQuaternion(0.5 * CRadians::PI, CVector3(0.0, 1.0, 0)))),
+            std::make_pair(2,  std::make_tuple("origin", CVector3( 0.02075, -0.02285, 0.05), CQuaternion(0.5 * CRadians::PI, CVector3(0.70711, 0.70711, 0)))),
+            std::make_pair(3,  std::make_tuple("origin", CVector3( -0.0209, -0.02265, 0.05), CQuaternion(0.5 * CRadians::PI, CVector3(0.70711, -0.70711, 0)))),
+            std::make_pair(4,  std::make_tuple("origin", CVector3( -0.02785, -0.0001, 0.05), CQuaternion(0.5 * CRadians::PI, CVector3(0, -1.0, 0)))), // Offset from the y-axis by 0.1mm in the hardware
+            std::make_pair(5,  std::make_tuple("origin", CVector3( -0.0209, 0.02265, 0.05), CQuaternion(0.5 * CRadians::PI, CVector3(-0.70711, -0.70711, 0)))),
+            std::make_pair(6,  std::make_tuple("origin", CVector3( 0.0206, 0.023, 0.05), CQuaternion(0.5 * CRadians::PI, CVector3(-0.70711, 0.70711, 0)))),
+    };
+
 
    /****************************************/
    /****************************************/
