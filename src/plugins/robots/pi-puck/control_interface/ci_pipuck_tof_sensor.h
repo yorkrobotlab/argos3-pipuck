@@ -38,6 +38,7 @@ namespace argos {
          const TConfiguration& Configuration;
          Real Range;
          Real Reading;
+         bool Enabled;
       };
 
       virtual ~CCI_PiPuckTofSensor() {}
