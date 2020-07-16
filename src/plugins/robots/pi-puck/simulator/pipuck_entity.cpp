@@ -59,6 +59,7 @@ namespace argos {
       m_pcEmbodiedEntity->AddAnchor("body", {0.0, 0.0, 0.00125});
       m_pcEmbodiedEntity->AddAnchor("left_wheel");
       m_pcEmbodiedEntity->AddAnchor("right_wheel");
+      m_pcEmbodiedEntity->AddAnchor("end_effector");
       /* create and initialize the differential drive entity */
       m_pcDifferentialDriveEntity
          = new CPiPuckDifferentialDriveEntity(this, "differential_drive_0");
@@ -191,6 +192,8 @@ namespace argos {
          m_pcEmbodiedEntity->AddAnchor("body", {0.0, 0.0, 0.00125});
          m_pcEmbodiedEntity->AddAnchor("left_wheel");
          m_pcEmbodiedEntity->AddAnchor("right_wheel");
+         SAnchor& sEndEffectorAnchor =
+            m_pcEmbodiedEntity->AddAnchor("end_effector", {0.0980875, 0, 0.055});
          /* create and initialize the differential drive entity */
          m_pcDifferentialDriveEntity
             = new CPiPuckDifferentialDriveEntity(this, "differential_drive_0");
