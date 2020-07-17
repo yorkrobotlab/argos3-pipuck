@@ -62,7 +62,7 @@ namespace argos {
                                             0.75f * CRadians::PI,
                                             0.00f * CRadians::PI);
       /* export the name of the anchor to the control interface */
-      m_strAnchor.assign("end_effector");
+      m_strAnchor.assign("body");
       /* transformation matrix */
       m_cOffset.SetFromComponents(m_cOffsetOrientation, m_cOffsetPosition);
    }
@@ -79,7 +79,7 @@ namespace argos {
             &(c_entity.GetComponent<CEmbodiedEntity>("body"));
          /* get end effector anchor */
          m_psEndEffectorAnchor =
-            &(m_pcEmbodiedEntity->GetAnchor("end_effector"));
+            &(m_pcEmbodiedEntity->GetAnchor("body"));
       }
       catch(CARGoSException& ex) {
          THROW_ARGOSEXCEPTION_NESTED("Error setting robot for the pipuck camera system sensor", ex);
