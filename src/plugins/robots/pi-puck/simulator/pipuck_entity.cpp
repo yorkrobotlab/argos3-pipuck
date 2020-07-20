@@ -233,12 +233,16 @@ namespace argos {
          AddComponent(*m_pcWifiRadioEquippedEntity);
          /* create and initialize the directional LED equipped entity */
          m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
+         CQuaternion led_orientation;
+         led_orientation.FromEulerAngles(0.00f * CRadians::PI,
+                                          0.50f * CRadians::PI,
+                                          0.00f * CRadians::PI);
          m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_0",
-                                                  CVector3(0, 0, 0.025),
-                                                  CQuaternion(),
-                                                  sOriginAnchor,
-                                                  CRadians::PI_OVER_THREE,
-                                                  CColor::BLACK);
+                                                  CVector3(0.035, 0, 0.040),
+                                                  CQuaternion(led_orientation),
+                                                   sOriginAnchor,
+                                                   CRadians::PI_OVER_THREE,
+                                                   CColor::BLACK);
          m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_1",
                                                   CVector3(0, 0, 0.025),
                                                   CQuaternion(), 
@@ -294,7 +298,7 @@ namespace argos {
                                                   CRadians::PI_OVER_THREE,
                                                   CColor::BLACK);
          std::string strLedMedium;
-         GetNodeAttributeOrDefault(t_tree, "led_medium", strLedMedium, strLedMedium);
+          GetNodeAttributeOrDefault(t_tree, "led_medium", strLedMedium, strLedMedium);
          if(!strLedMedium.empty()) {
             CDirectionalLEDMedium& cDirectionalLedMedium =
                CSimulator::GetInstance().GetMedium<CDirectionalLEDMedium>(strLedMedium);

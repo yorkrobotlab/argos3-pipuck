@@ -331,7 +331,7 @@ namespace argos {
    /****************************************/
 
    CPiPuckCameraSystemDefaultSensor::ELedState
-      CPiPuckCameraSystemDefaultSensor::DetectLed(const CVector3& c_position) {    
+      CPiPuckCameraSystemDefaultSensor::DetectLed(const CVector3& c_position) {
       /* c_position is the led in camera's coordinate system, 
          transfer it to global coordinate system */
       CVector3 cLedPosition(c_position);
