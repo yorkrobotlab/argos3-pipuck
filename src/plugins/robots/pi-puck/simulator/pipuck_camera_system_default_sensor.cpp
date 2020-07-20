@@ -57,10 +57,10 @@ namespace argos {
       /* set the resolution of the camera in the control interface */
       m_cResolution.Set(CAMERA_RESOLUTION_X, CAMERA_RESOLUTION_Y);
       /* set the offset from end effector anchor in the control interface */
-      m_cOffsetPosition.Set(0.0f, 0.0f, 0.075f);
+      m_cOffsetPosition.Set(0.035f, 0.0f, 0.026f);
       m_cOffsetOrientation.FromEulerAngles(0.00f * CRadians::PI,
-                                            0.00f * CRadians::PI,
-                                            0.50f * CRadians::PI);
+                                            0.50f * CRadians::PI,
+                                            0.00f * CRadians::PI);
       /* export the name of the anchor to the control interface */
       m_strAnchor.assign("body");
       /* transformation matrix */
