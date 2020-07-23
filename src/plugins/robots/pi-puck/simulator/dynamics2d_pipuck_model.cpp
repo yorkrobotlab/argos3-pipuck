@@ -22,6 +22,8 @@ namespace argos {
    static const Real PIPUCK_MAX_FORCE           = 1.5f;
    static const Real PIPUCK_MAX_TORQUE          = 1.5f;
 
+   static const Real PIPUCK_MPS = 0.128;
+
    enum PIPUCK_WHEELS {
       PIPUCK_LEFT_WHEEL = 0,
       PIPUCK_RIGHT_WHEEL = 1
@@ -97,8 +99,8 @@ namespace argos {
       Real fTargetVelocityLeft = m_cDifferentialDriveEntity.GetTargetVelocityLeft();
       Real fTargetVelocityRight = m_cDifferentialDriveEntity.GetTargetVelocityRight();
       if((fTargetVelocityLeft != 0.0f) || (fTargetVelocityRight != 0.0f)) {
-         m_cDiffSteering.SetWheelVelocity(fTargetVelocityLeft,
-                                          fTargetVelocityRight);
+         m_cDiffSteering.SetWheelVelocity(fTargetVelocityLeft*PIPUCK_MPS,
+                                          fTargetVelocityRight*PIPUCK_MPS);
       }
       else {
          /* No, we don't want to move - zero all speeds */

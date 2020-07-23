@@ -57,8 +57,8 @@ namespace argos {
       SAnchor& sOriginAnchor = m_pcEmbodiedEntity->GetOriginAnchor();
       /* create additional anchors */
       m_pcEmbodiedEntity->AddAnchor("body", {0.0, 0.0, 0.00125});
-      m_pcEmbodiedEntity->AddAnchor("left_wheel", {0.0, 0.02125, 0.0255}, {0, 0.7071, -0.7071, 0});
-      m_pcEmbodiedEntity->AddAnchor("right_wheel", {0.0, -0.02125, 0.0255}, {0, 0.7071, -0.7071, 0});
+      m_pcEmbodiedEntity->AddAnchor("left_wheel", {0.0, 0.0255, 0.02125}, CQuaternion(-CRadians::PI_OVER_TWO, CVector3(1, 0, 0)));
+      m_pcEmbodiedEntity->AddAnchor("right_wheel", {0.0, -0.0255, 0.02125}, CQuaternion(CRadians::PI_OVER_TWO, CVector3(1, 0, 0)));
       m_pcEmbodiedEntity->EnableAnchor("body");
       m_pcEmbodiedEntity->EnableAnchor("left_wheel");
       m_pcEmbodiedEntity->EnableAnchor("right_wheel");
@@ -192,8 +192,8 @@ namespace argos {
          SAnchor& sOriginAnchor = m_pcEmbodiedEntity->GetOriginAnchor();
          /* create additional anchors */
          m_pcEmbodiedEntity->AddAnchor("body", {0.0, 0.0, 0.00125});
-         m_pcEmbodiedEntity->AddAnchor("left_wheel", {0.0, 0.05125, 0.0255}, {0, 0.7071, -0.7071, 0});
-         m_pcEmbodiedEntity->AddAnchor("right_wheel", {0.0, -0.05125, 0.0255}, {0, 0.7071, -0.7071, 0}); //TODO: fix rotation
+         m_pcEmbodiedEntity->AddAnchor("left_wheel", {0.0, 0.0255, 0.02125}, CQuaternion(-CRadians::PI_OVER_TWO, CVector3(1, 0, 0)));
+         m_pcEmbodiedEntity->AddAnchor("right_wheel", {0.0, -0.0255, 0.02125}, CQuaternion(CRadians::PI_OVER_TWO, CVector3(1, 0, 0))); //TODO: fix rotation
          m_pcEmbodiedEntity->EnableAnchor("body");
          m_pcEmbodiedEntity->EnableAnchor("left_wheel");
          m_pcEmbodiedEntity->EnableAnchor("right_wheel");
