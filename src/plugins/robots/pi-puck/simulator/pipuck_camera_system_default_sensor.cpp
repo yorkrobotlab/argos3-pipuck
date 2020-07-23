@@ -353,17 +353,11 @@ namespace argos {
       }
       /* At this point, we have the closest LED, estimate its state (mapped from
          an exact color in simulation */
-      if(itClosestLed->Color == CColor::MAGENTA) {
+      if(itClosestLed->Color == CColor::RED) {
          return ELedState::Q1;
       }
-      else if(itClosestLed->Color == CColor::ORANGE) {
-         return ELedState::Q2;
-      }
       else if(itClosestLed->Color == CColor::GREEN) {
-         return ELedState::Q3;
-      }
-      else if(itClosestLed->Color == CColor::BLUE) {
-         return ELedState::Q4;
+         return ELedState::Q2;
       }
       else {
          return ELedState::OFF;
@@ -417,6 +411,7 @@ namespace argos {
       }
       return true;
    }
+
 
    /****************************************/
    /****************************************/
