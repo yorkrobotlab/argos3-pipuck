@@ -9,6 +9,7 @@
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/core/simulator/entity/controllable_entity.h>
 #include <argos3/core/simulator/entity/embodied_entity.h>
+#include <argos3/plugins/simulator/entities/battery_equipped_entity.h>
 #include <argos3/core/utility/datatypes/color.h>
 
 #include <argos3/plugins/simulator/entities/debug_entity.h>
@@ -44,12 +45,14 @@ namespace argos {
                                 bool b_debug,
                                 const std::string& str_wifi_medium,
                                 const std::string& str_tag_medium,
+                                const std::string& str_bat_model,
                                 const std::string& str_led_medium) :
       CComposableEntity(nullptr, str_id),
       m_pcControllableEntity(nullptr),
       m_pcDebugEntity(nullptr),
       m_pcEmbodiedEntity(nullptr),
       m_pcDifferentialDriveEntity(nullptr),
+      m_pcBatteryEquippedEntity(nullptr),
       m_bDebug(b_debug) {
       /* create and initialize the embodied entity */
       m_pcEmbodiedEntity = new CEmbodiedEntity(this, "body_0", c_position, c_orientation);
@@ -168,6 +171,9 @@ namespace argos {
       /* create and initialize a debugging entity */
       m_pcDebugEntity = new CDebugEntity(this, "debug_0");
       AddComponent(*m_pcDebugEntity);
+      /* create and initialize a battery equipped entity */
+      m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
+      AddComponent(*m_pcBatteryEquippedEntity);
       /* Create and initialize the controllable entity */
       m_pcControllableEntity = new CControllableEntity(this, "controller_0");
       AddComponent(*m_pcControllableEntity);
@@ -313,6 +319,11 @@ namespace argos {
          /* create and initialize a debugging entity */
          m_pcDebugEntity = new CDebugEntity(this, "debug_0");
          AddComponent(*m_pcDebugEntity);
+         /* Battery equipped entity */
+         m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0");
+         if(NodeExists(t_tree, "battery"))
+            m_pcBatteryEquippedEntity->Init(GetNode(t_tree, "battery"));
+         AddComponent(*m_pcBatteryEquippedEntity);
          /* Create and initialize the controllable entity */
          m_pcControllableEntity = new CControllableEntity(this);
          AddComponent(*m_pcControllableEntity);
