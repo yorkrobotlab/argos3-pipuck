@@ -52,9 +52,7 @@ namespace argos {
       };
 
       struct SLed {
-         SLed{UInt32 un_id,
-         }
-      }
+      };
 
    public:
 
@@ -88,7 +86,7 @@ namespace argos {
          return m_tTags;
       }
 
-       virtual void ForEachLedInterface(std::function<void(const SLed&)>) = 0;
+      //  virtual void ForEachLedInterface(std::function<void(const SLed&)>) = 0;
 
 
 #ifdef ARGOS_WITH_LUA
