@@ -13,6 +13,7 @@ namespace argos {
    class CControllableEntity;
    class CDebugEntity;
    class CDirectionalLEDEquippedEntity;
+   class CLightSensorEquippedEntity;
    class CEmbodiedEntity;
    class CRadioEquippedEntity;
    class CTagEquippedEntity;
@@ -35,6 +36,7 @@ namespace argos {
          m_pcControllableEntity(nullptr),
          m_pcDebugEntity(nullptr),
          m_pcEmbodiedEntity(nullptr),
+         m_pcLightSensorEquippedEntity(nullptr),
          m_pcDifferentialDriveEntity(nullptr),
          m_pcTagEquippedEntity(nullptr),
          m_pcBatteryEquippedEntity(nullptr),
@@ -102,6 +104,14 @@ namespace argos {
          return *m_pcTagEquippedEntity;
       }
 
+      inline CLightSensorEquippedEntity& GetLightSensorEquippedEntity() {
+         return *m_pcLightSensorEquippedEntity;
+      }
+
+      inline const CLightSensorEquippedEntity& GetLightSensorEquippedEntity() const {
+         return *m_pcLightSensorEquippedEntity;
+      }
+
       inline CBatteryEquippedEntity& GetBatterySensorEquippedEntity() {
           return *m_pcBatteryEquippedEntity;
       }
@@ -121,6 +131,7 @@ namespace argos {
       CPiPuckDifferentialDriveEntity* m_pcDifferentialDriveEntity;
       CRadioEquippedEntity*           m_pcWifiRadioEquippedEntity;
       CTagEquippedEntity*             m_pcTagEquippedEntity;
+      CLightSensorEquippedEntity*     m_pcLightSensorEquippedEntity;
       CBatteryEquippedEntity*         m_pcBatteryEquippedEntity;
 
       bool m_bDebug;

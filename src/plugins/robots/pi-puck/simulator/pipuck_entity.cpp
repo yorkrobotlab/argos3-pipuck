@@ -16,6 +16,7 @@
 #include <argos3/plugins/simulator/entities/directional_led_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/radio_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/tag_equipped_entity.h>
+#include <argos3/plugins/simulator/entities/light_sensor_equipped_entity.h>
 #include <argos3/plugins/simulator/media/directional_led_medium.h>
 #include <argos3/plugins/simulator/media/radio_medium.h>
 #include <argos3/plugins/simulator/media/tag_medium.h>
@@ -51,6 +52,7 @@ namespace argos {
       m_pcControllableEntity(nullptr),
       m_pcDebugEntity(nullptr),
       m_pcEmbodiedEntity(nullptr),
+      m_pcLightSensorEquippedEntity(nullptr),
       m_pcDifferentialDriveEntity(nullptr),
       m_pcBatteryEquippedEntity(nullptr),
       m_bDebug(b_debug) {
@@ -98,7 +100,10 @@ namespace argos {
          m_pcWifiRadioEquippedEntity->SetMedium(cWifiRadioMedium);
          m_pcWifiRadioEquippedEntity->Enable();
       }
-      AddComponent(*m_pcWifiRadioEquippedEntity);     
+      AddComponent(*m_pcWifiRadioEquippedEntity); 
+      m_pcLightSensorEquippedEntity =
+         new CLightSensorEquippedEntity(this, "light_0");
+      AddComponent(*m_pcLightSensorEquippedEntity);    
       /* create and initialize the directional LED equipped entity */
       m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
       m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_0",
@@ -241,6 +246,9 @@ namespace argos {
             m_pcWifiRadioEquippedEntity->Enable();
          }
          AddComponent(*m_pcWifiRadioEquippedEntity);
+         m_pcLightSensorEquippedEntity =
+            new CLightSensorEquippedEntity(this, "light_0");
+         AddComponent(*m_pcLightSensorEquippedEntity);
          /* create and initialize the directional LED equipped entity */
          m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
          CQuaternion led_orientation;
