@@ -103,7 +103,14 @@ namespace argos {
       AddComponent(*m_pcWifiRadioEquippedEntity); 
       m_pcLightSensorEquippedEntity =
          new CLightSensorEquippedEntity(this, "light_0");
-      AddComponent(*m_pcLightSensorEquippedEntity);    
+      AddComponent(*m_pcLightSensorEquippedEntity);  
+      m_pcLightSensorEquippedEntity->AddSensorRing(
+            CVector3(0.0f, 0.0f, 0.086f), // height is pipuck height
+            0.035f, //pipuck radius
+            0.00f * CRadians::PI, // start angle is 0
+            1, // range
+            24, // 24 light sensors
+            m_pcEmbodiedEntity->GetOriginAnchor());  
       /* create and initialize the directional LED equipped entity */
       m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
       m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_0",
@@ -249,6 +256,13 @@ namespace argos {
          m_pcLightSensorEquippedEntity =
             new CLightSensorEquippedEntity(this, "light_0");
          AddComponent(*m_pcLightSensorEquippedEntity);
+         m_pcLightSensorEquippedEntity->AddSensorRing(
+            CVector3(0.0f, 0.0f, 0.086f),
+            0.035f,
+            0.00f * CRadians::PI,
+            1,
+            24,
+            m_pcEmbodiedEntity->GetOriginAnchor()); 
          /* create and initialize the directional LED equipped entity */
          m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
          CQuaternion led_orientation;
