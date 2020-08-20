@@ -39,8 +39,6 @@ namespace argos {
          Real Reading;
       };
 
-   public:
-
       virtual ~CCI_PiPuckGroundSensor() {}
 
       virtual void ForEachInterface(std::function<void(const SInterface&)>) = 0;
@@ -55,7 +53,8 @@ namespace argos {
 
       static const std::map<std::string, TConfiguration> m_mapSensorConfig;
 
-   };
+
+   }; 
 
 }
 

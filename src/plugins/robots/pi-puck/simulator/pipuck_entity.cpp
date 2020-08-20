@@ -9,12 +9,14 @@
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/core/simulator/entity/controllable_entity.h>
 #include <argos3/core/simulator/entity/embodied_entity.h>
+#include <argos3/plugins/simulator/entities/battery_equipped_entity.h>
 #include <argos3/core/utility/datatypes/color.h>
 
 #include <argos3/plugins/simulator/entities/debug_entity.h>
 #include <argos3/plugins/simulator/entities/directional_led_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/radio_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/tag_equipped_entity.h>
+#include <argos3/plugins/simulator/entities/light_sensor_equipped_entity.h>
 #include <argos3/plugins/simulator/media/directional_led_medium.h>
 #include <argos3/plugins/simulator/media/radio_medium.h>
 #include <argos3/plugins/simulator/media/tag_medium.h>
@@ -44,12 +46,15 @@ namespace argos {
                                 bool b_debug,
                                 const std::string& str_wifi_medium,
                                 const std::string& str_tag_medium,
+                                const std::string& str_bat_model,
                                 const std::string& str_led_medium) :
       CComposableEntity(nullptr, str_id),
       m_pcControllableEntity(nullptr),
       m_pcDebugEntity(nullptr),
       m_pcEmbodiedEntity(nullptr),
+      m_pcLightSensorEquippedEntity(nullptr),
       m_pcDifferentialDriveEntity(nullptr),
+      m_pcBatteryEquippedEntity(nullptr),
       m_bDebug(b_debug) {
       /* create and initialize the embodied entity */
       m_pcEmbodiedEntity = new CEmbodiedEntity(this, "body_0", c_position, c_orientation);
@@ -57,8 +62,11 @@ namespace argos {
       SAnchor& sOriginAnchor = m_pcEmbodiedEntity->GetOriginAnchor();
       /* create additional anchors */
       m_pcEmbodiedEntity->AddAnchor("body", {0.0, 0.0, 0.00125});
-      m_pcEmbodiedEntity->AddAnchor("left_wheel");
-      m_pcEmbodiedEntity->AddAnchor("right_wheel");
+      m_pcEmbodiedEntity->AddAnchor("left_wheel", {0.0, 0.0255, 0.02125}, CQuaternion(-CRadians::PI_OVER_TWO, CVector3(1, 0, 0)));
+      m_pcEmbodiedEntity->AddAnchor("right_wheel", {0.0, -0.0255, 0.02125}, CQuaternion(CRadians::PI_OVER_TWO, CVector3(1, 0, 0)));
+      m_pcEmbodiedEntity->EnableAnchor("body");
+      m_pcEmbodiedEntity->EnableAnchor("left_wheel");
+      m_pcEmbodiedEntity->EnableAnchor("right_wheel");
       /* create and initialize the differential drive entity */
       m_pcDifferentialDriveEntity
          = new CPiPuckDifferentialDriveEntity(this, "differential_drive_0");
@@ -92,7 +100,17 @@ namespace argos {
          m_pcWifiRadioEquippedEntity->SetMedium(cWifiRadioMedium);
          m_pcWifiRadioEquippedEntity->Enable();
       }
-      AddComponent(*m_pcWifiRadioEquippedEntity);     
+      AddComponent(*m_pcWifiRadioEquippedEntity); 
+      m_pcLightSensorEquippedEntity =
+         new CLightSensorEquippedEntity(this, "light_0");
+      AddComponent(*m_pcLightSensorEquippedEntity);  
+      m_pcLightSensorEquippedEntity->AddSensorRing(
+            CVector3(0.0f, 0.0f, 0.086f), // height is pipuck height
+            0.035f, //pipuck radius
+            0.00f * CRadians::PI, // start angle is 0
+            1, // range
+            24, // 24 light sensors
+            m_pcEmbodiedEntity->GetOriginAnchor());  
       /* create and initialize the directional LED equipped entity */
       m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
       m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_0",
@@ -165,6 +183,9 @@ namespace argos {
       /* create and initialize a debugging entity */
       m_pcDebugEntity = new CDebugEntity(this, "debug_0");
       AddComponent(*m_pcDebugEntity);
+      /* create and initialize a battery equipped entity */
+      m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
+      AddComponent(*m_pcBatteryEquippedEntity);
       /* Create and initialize the controllable entity */
       m_pcControllableEntity = new CControllableEntity(this, "controller_0");
       AddComponent(*m_pcControllableEntity);
@@ -189,8 +210,11 @@ namespace argos {
          SAnchor& sOriginAnchor = m_pcEmbodiedEntity->GetOriginAnchor();
          /* create additional anchors */
          m_pcEmbodiedEntity->AddAnchor("body", {0.0, 0.0, 0.00125});
-         m_pcEmbodiedEntity->AddAnchor("left_wheel");
-         m_pcEmbodiedEntity->AddAnchor("right_wheel");
+         m_pcEmbodiedEntity->AddAnchor("left_wheel", {0.0, 0.0255, 0.02125}, CQuaternion(-CRadians::PI_OVER_TWO, CVector3(1, 0, 0)));
+         m_pcEmbodiedEntity->AddAnchor("right_wheel", {0.0, -0.0255, 0.02125}, CQuaternion(CRadians::PI_OVER_TWO, CVector3(1, 0, 0))); //TODO: fix rotation
+         m_pcEmbodiedEntity->EnableAnchor("body");
+         m_pcEmbodiedEntity->EnableAnchor("left_wheel");
+         m_pcEmbodiedEntity->EnableAnchor("right_wheel");
          /* create and initialize the differential drive entity */
          m_pcDifferentialDriveEntity
             = new CPiPuckDifferentialDriveEntity(this, "differential_drive_0");
@@ -229,14 +253,28 @@ namespace argos {
             m_pcWifiRadioEquippedEntity->Enable();
          }
          AddComponent(*m_pcWifiRadioEquippedEntity);
+         m_pcLightSensorEquippedEntity =
+            new CLightSensorEquippedEntity(this, "light_0");
+         AddComponent(*m_pcLightSensorEquippedEntity);
+         m_pcLightSensorEquippedEntity->AddSensorRing(
+            CVector3(0.0f, 0.0f, 0.086f),
+            0.035f,
+            0.00f * CRadians::PI,
+            1,
+            24,
+            m_pcEmbodiedEntity->GetOriginAnchor()); 
          /* create and initialize the directional LED equipped entity */
          m_pcDirectionalLEDEquippedEntity = new CDirectionalLEDEquippedEntity(this, "leds_0");
+         CQuaternion led_orientation;
+         led_orientation.FromEulerAngles(0.00f * CRadians::PI,
+                                          0.50f * CRadians::PI,
+                                          0.00f * CRadians::PI);
          m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_0",
-                                                  CVector3(0, 0, 0.025),
-                                                  CQuaternion(),
-                                                  sOriginAnchor,
-                                                  CRadians::PI_OVER_THREE,
-                                                  CColor::BLACK);
+                                                  CVector3(0.035, 0, 0.040),
+                                                  CQuaternion(led_orientation),
+                                                   sOriginAnchor,
+                                                   CRadians::PI_OVER_THREE,
+                                                   CColor::BLACK);
          m_pcDirectionalLEDEquippedEntity->AddLED("ring_led_1",
                                                   CVector3(0, 0, 0.025),
                                                   CQuaternion(), 
@@ -292,7 +330,7 @@ namespace argos {
                                                   CRadians::PI_OVER_THREE,
                                                   CColor::BLACK);
          std::string strLedMedium;
-         GetNodeAttributeOrDefault(t_tree, "led_medium", strLedMedium, strLedMedium);
+          GetNodeAttributeOrDefault(t_tree, "led_medium", strLedMedium, strLedMedium);
          if(!strLedMedium.empty()) {
             CDirectionalLEDMedium& cDirectionalLedMedium =
                CSimulator::GetInstance().GetMedium<CDirectionalLEDMedium>(strLedMedium);
@@ -303,6 +341,11 @@ namespace argos {
          /* create and initialize a debugging entity */
          m_pcDebugEntity = new CDebugEntity(this, "debug_0");
          AddComponent(*m_pcDebugEntity);
+         /* Battery equipped entity */
+         m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0");
+         if(NodeExists(t_tree, "battery"))
+            m_pcBatteryEquippedEntity->Init(GetNode(t_tree, "battery"));
+         AddComponent(*m_pcBatteryEquippedEntity);
          /* Create and initialize the controllable entity */
          m_pcControllableEntity = new CControllableEntity(this);
          AddComponent(*m_pcControllableEntity);

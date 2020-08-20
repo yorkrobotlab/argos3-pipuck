@@ -25,9 +25,7 @@ namespace argos {
       enum class ELedState : UInt8 {
          OFF = 0,
          Q1  = 1,
-         Q2  = 2,
-         Q3  = 3,
-         Q4  = 4
+         Q2  = 2
       };
 
       struct STag {
@@ -51,6 +49,9 @@ namespace argos {
          std::array<CVector2, 4> Corners;
          /* Vector of tags */
          using TVector = std::vector<STag>;
+      };
+
+      struct SLed {
       };
 
    public:
@@ -84,6 +85,8 @@ namespace argos {
       const STag::TVector& GetTags() const {
          return m_tTags;
       }
+
+      //  virtual void ForEachLedInterface(std::function<void(const SLed&)>) = 0;
 
 
 #ifdef ARGOS_WITH_LUA

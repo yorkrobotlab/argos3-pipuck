@@ -8,10 +8,12 @@
 #define PIPUCK_ENTITY_H
 
 namespace argos {
+   class CBatteryEquippedEntity;
    class CPiPuckDifferentialDriveEntity;
    class CControllableEntity;
    class CDebugEntity;
    class CDirectionalLEDEquippedEntity;
+   class CLightSensorEquippedEntity;
    class CEmbodiedEntity;
    class CRadioEquippedEntity;
    class CTagEquippedEntity;
@@ -34,8 +36,10 @@ namespace argos {
          m_pcControllableEntity(nullptr),
          m_pcDebugEntity(nullptr),
          m_pcEmbodiedEntity(nullptr),
+         m_pcLightSensorEquippedEntity(nullptr),
          m_pcDifferentialDriveEntity(nullptr),
          m_pcTagEquippedEntity(nullptr),
+         m_pcBatteryEquippedEntity(nullptr),
          m_bDebug(false) {}
 
       CPiPuckEntity(const std::string& str_id,
@@ -45,6 +49,7 @@ namespace argos {
                     bool b_debug = false,
                     const std::string& str_wifi_medium = "",
                     const std::string& str_tag_medium = "",
+                    const std::string& str_bat_model = "",
                     const std::string& str_led_medium = "");
 
       virtual ~CPiPuckEntity() {}
@@ -99,6 +104,18 @@ namespace argos {
          return *m_pcTagEquippedEntity;
       }
 
+      inline CLightSensorEquippedEntity& GetLightSensorEquippedEntity() {
+         return *m_pcLightSensorEquippedEntity;
+      }
+
+      inline const CLightSensorEquippedEntity& GetLightSensorEquippedEntity() const {
+         return *m_pcLightSensorEquippedEntity;
+      }
+
+      inline CBatteryEquippedEntity& GetBatterySensorEquippedEntity() {
+          return *m_pcBatteryEquippedEntity;
+      }
+
       inline bool IsDebug() const {
          return m_bDebug;
       }
@@ -114,6 +131,8 @@ namespace argos {
       CPiPuckDifferentialDriveEntity* m_pcDifferentialDriveEntity;
       CRadioEquippedEntity*           m_pcWifiRadioEquippedEntity;
       CTagEquippedEntity*             m_pcTagEquippedEntity;
+      CLightSensorEquippedEntity*     m_pcLightSensorEquippedEntity;
+      CBatteryEquippedEntity*         m_pcBatteryEquippedEntity;
 
       bool m_bDebug;
 

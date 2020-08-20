@@ -28,7 +28,7 @@
         <pipuck_ground implementation="default" show_rays="false" />
         <wifi implementation="default" />
       </sensors>
-      <params script="@CMAKE_BINARY_DIR@/testing/pi-puck/test_pipuck.lua" />
+      <params script="build/testing/pi-puck/simulator/controllers/test_pipuck.lua" />
     </lua_controller>
 
   </controllers>
@@ -38,7 +38,7 @@
   <!-- *********************** -->
   <arena size="1, 1, 1" center="0, 0, 0.25">
     <floor id="floor" source="image" pixels_per_meter="1000"
-           path="@CMAKE_BINARY_DIR@/testing/pi-puck/test_pipuck.png" />
+           path="src/testing/pi-puck/simulator/floors/test_pipuck.png" />
     <box id="north" size="0.025,0.975,0.06" movable="false" mass="10">
       <body position="0.4875,0.0125,0"  orientation="0,0,0" />
     </box>

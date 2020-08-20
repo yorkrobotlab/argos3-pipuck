@@ -57,12 +57,12 @@ namespace argos {
       /* set the resolution of the camera in the control interface */
       m_cResolution.Set(CAMERA_RESOLUTION_X, CAMERA_RESOLUTION_Y);
       /* set the offset from end effector anchor in the control interface */
-      m_cOffsetPosition.Set(0.0f, 0.0f, 0.075f);
-      m_cOffsetOrientation.FromEulerAngles(-0.50f * CRadians::PI,
-                                            0.75f * CRadians::PI,
+      m_cOffsetPosition.Set(0.035f, 0.0f, 0.026f);
+      m_cOffsetOrientation.FromEulerAngles(0.00f * CRadians::PI,
+                                            0.50f * CRadians::PI,
                                             0.00f * CRadians::PI);
       /* export the name of the anchor to the control interface */
-      m_strAnchor.assign("end_effector");
+      m_strAnchor.assign("body");
       /* transformation matrix */
       m_cOffset.SetFromComponents(m_cOffsetOrientation, m_cOffsetPosition);
    }
@@ -79,7 +79,7 @@ namespace argos {
             &(c_entity.GetComponent<CEmbodiedEntity>("body"));
          /* get end effector anchor */
          m_psEndEffectorAnchor =
-            &(m_pcEmbodiedEntity->GetAnchor("end_effector"));
+            &(m_pcEmbodiedEntity->GetAnchor("body"));
       }
       catch(CARGoSException& ex) {
          THROW_ARGOSEXCEPTION_NESTED("Error setting robot for the pipuck camera system sensor", ex);
@@ -331,7 +331,7 @@ namespace argos {
    /****************************************/
 
    CPiPuckCameraSystemDefaultSensor::ELedState
-      CPiPuckCameraSystemDefaultSensor::DetectLed(const CVector3& c_position) {    
+      CPiPuckCameraSystemDefaultSensor::DetectLed(const CVector3& c_position) {
       /* c_position is the led in camera's coordinate system, 
          transfer it to global coordinate system */
       CVector3 cLedPosition(c_position);
@@ -353,17 +353,11 @@ namespace argos {
       }
       /* At this point, we have the closest LED, estimate its state (mapped from
          an exact color in simulation */
-      if(itClosestLed->Color == CColor::MAGENTA) {
+      if(itClosestLed->Color == CColor::RED) {
          return ELedState::Q1;
       }
-      else if(itClosestLed->Color == CColor::ORANGE) {
-         return ELedState::Q2;
-      }
       else if(itClosestLed->Color == CColor::GREEN) {
-         return ELedState::Q3;
-      }
-      else if(itClosestLed->Color == CColor::BLUE) {
-         return ELedState::Q4;
+         return ELedState::Q2;
       }
       else {
          return ELedState::OFF;
@@ -417,6 +411,7 @@ namespace argos {
       }
       return true;
    }
+
 
    /****************************************/
    /****************************************/

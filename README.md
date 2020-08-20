@@ -71,11 +71,18 @@ You can check that the plugin has been properly installed by running the followi
 ```shell
 argos3 -q pipuck
 ```
-There is a demo that loads a lua controller that shows how to drive the robot around, how to use the ground sensors, and how to control the LEDs. You can run this with the following command:
+There is a demo that loads a lua controller that shows how to drive the robot around, how to use the ground sensors, and how to control the LEDs. You can run this with the following command from your argos3-pipuck/ directory:
 
 ```shell
-argos3 -c path/to/argos3-pipuck/build/testing/pi-puck/test_pipuck.argos
+argos3 -c src/testing/pi-puck/simulator/experiment/test_pipuck_lua.argos
 ```
+
+Finally, a second demo that uses a c++ controller exists, using the same pathfinder algorithm as the lua test. To use it, run the following command from the argos3-pipuck/ directory:
+
+```shell
+argos3 -c src/testing/pi-puck/simulator/experiment/test_pipuck_cpp.argos
+```
+
 
 
 
