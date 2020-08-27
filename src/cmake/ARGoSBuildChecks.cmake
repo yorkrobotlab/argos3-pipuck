@@ -96,7 +96,7 @@ if(LUA53_FOUND)
   set(ARGOS_WITH_LUA ON)
   include_directories(${LUA_INCLUDE_DIR})
 else(LUA53_FOUND)
-  message(FATAL_ERROR "Lua 5.3 not found")
+  set(ARGOS_WITH_LUA OFF)
 endif(LUA53_FOUND)
 
 if(NOT APPLE)
