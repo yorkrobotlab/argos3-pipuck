@@ -3,7 +3,10 @@ ARGoS3 Plug-in for the pi-puck
 
 ## Compiling the code
 
-Make sure you have ARGoS >= 3.0.0-beta56 installed
+### Dependencies
+
+Make sure you have ARGoS >= 3.0.0-beta56 installed. 
+You will also need a version of gcc >= 6.1.0 for the simulator, and >= 9.1.0 to build for a robot. 
 
 ### If you have ARGoS installed system-wide
 Commands:
