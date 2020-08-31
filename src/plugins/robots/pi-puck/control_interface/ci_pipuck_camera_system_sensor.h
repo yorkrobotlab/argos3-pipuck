@@ -86,7 +86,6 @@ namespace argos {
          return m_tTags;
       }
 
-      //  virtual void ForEachLedInterface(std::function<void(const SLed&)>) = 0;
 
 
 #ifdef ARGOS_WITH_LUA
