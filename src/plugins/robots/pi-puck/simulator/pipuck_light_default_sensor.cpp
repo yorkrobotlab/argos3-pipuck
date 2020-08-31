@@ -30,6 +30,9 @@ namespace argos {
       return n_value;
    }
 
+   /****************************************/
+   /****************************************/
+
    static Real ComputeReading(Real f_distance) {
       if(f_distance > 2.5f) {
          return 0.0f;
@@ -39,6 +42,9 @@ namespace argos {
       }
    }
 
+   /****************************************/
+   /****************************************/
+   
    static Real ScaleReading(const CRadians& c_angular_distance) {
       if(c_angular_distance > CRadians::PI_OVER_TWO) {
          return 0.0f;

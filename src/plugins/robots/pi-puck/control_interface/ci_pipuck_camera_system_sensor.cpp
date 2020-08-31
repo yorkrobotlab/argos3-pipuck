@@ -124,9 +124,6 @@ namespace argos {
    /****************************************/
 
 
-
-
-
 #ifdef ARGOS_WITH_LUA
    void CCI_PiPuckCameraSystemSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
       lua_getfield(pt_lua_state, -1, "camera_system");

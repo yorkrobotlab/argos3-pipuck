@@ -423,4 +423,7 @@ namespace argos {
                    "A generic multi-camera sensor capable of running various algorithms",
                    "Long description\n",
                    "Usable");
+   
+   /****************************************/
+   /****************************************/
 }

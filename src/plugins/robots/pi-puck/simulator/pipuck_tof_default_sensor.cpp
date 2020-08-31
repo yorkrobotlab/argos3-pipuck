@@ -20,6 +20,9 @@
 
 namespace argos {
 
+   /****************************************/
+   /****************************************/
+
    CPiPuckTofDefaultSensor::CPiPuckTofDefaultSensor() :
    m_bShowRays(false), /* false by default, I think, because otherwise the rays show even when the sensor isn't called? TODO: check this is true*/
    m_sRange("short"),
@@ -38,6 +41,9 @@ namespace argos {
          m_vecSimulatedInterfaces.emplace_back(t_config.first, sAnchor);
        }
    }
+
+   /****************************************/
+   /****************************************/
 
    void CPiPuckTofDefaultSensor::Init(TConfigurationNode& t_tree) {
       try {
@@ -81,6 +87,9 @@ namespace argos {
       }
    }
 
+   /****************************************/
+   /****************************************/
+
    void CPiPuckTofDefaultSensor::Update() {
       /* buffers */
       CRay3 cSensorRay;
@@ -121,11 +130,17 @@ namespace argos {
       }
    }
 
+   /****************************************/
+   /****************************************/
+
    void CPiPuckTofDefaultSensor::Reset() {
       for(SSimulatedInterface& s_interface : m_vecSimulatedInterfaces) {
          s_interface.Reading = s_interface.Reading; /*when resetting, the default is the range of the sensor*/
       }
    }
+
+   /****************************************/
+   /****************************************/
 
    void CPiPuckTofDefaultSensor::ForEachInterface(std::function<void(const SInterface&)> fn) {
       for(const SSimulatedInterface& s_interface : m_vecSimulatedInterfaces) {
@@ -134,6 +149,9 @@ namespace argos {
          }
       }
    }
+
+   /****************************************/
+   /****************************************/
 
    REGISTER_SENSOR(CPiPuckTofDefaultSensor,
                   "pipuck_tof", "default", 
@@ -148,6 +166,7 @@ namespace argos {
                   "Under development"
    );
 
-
+   /****************************************/
+   /****************************************/
 
 }
